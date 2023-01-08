@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainFormUi</class>
+ <widget class="QMainWindow" name="MainFormUi">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>ЛР 11-13</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableWidget" name="resultsTable">
+      <property name="minimumSize">
+       <size>
+        <width>792</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>792</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <row>
+       <property name="text">
+        <string>Обмен</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Выбор</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Включение</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Шелла</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Быстрая</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Встроенная</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Включить</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Сравнения</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Перестановки</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Время (мкс)</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="sortBtn">
+        <property name="text">
+         <string>Сортировать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Размер массива:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="arrSize">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000000</number>
+          </property>
+          <property name="singleStep">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>10000</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="exitBtn">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset theme="exit">
+          <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
