@@ -13,6 +13,7 @@
 #include "direct_selection_sort.hpp"
 #include "direct_swap_sort.hpp"
 #include "internal_sort.hpp"
+#include "quick_sort.hpp"
 
 ui::Main::Main(QWidget *parent)
     : QMainWindow(parent), m_ui{std::make_unique<ui_t>()}, m_rdev{} {
@@ -32,6 +33,7 @@ void ui::Main::update_sort_info() {
   update_swap_sort();
   update_insertion_sort();
   update_selection_sort();
+  update_quick_sort();
   update_internal_sort();
 }
 
@@ -83,6 +85,22 @@ void ui::Main::update_insertion_sort() {
   m_ui->resultsTable->item(2, 2)->setText(
       QString::number(result.func_result.swaps));
   m_ui->resultsTable->item(2, 3)->setText(
+      QString::number(result.duration.count()));
+}
+
+void ui::Main::update_quick_sort() {
+  randdist_t dist(m_min_value, m_max_value);
+  std::vector<value_t> arr(m_arr_size);
+  std::generate(arr.begin(), arr.end(),
+                [this, &dist]() { return dist(m_rgen); });
+  const auto result = Timer::measure(
+      quick_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+
+  m_ui->resultsTable->item(4, 1)->setText(
+      QString::number(result.func_result.comparisons));
+  m_ui->resultsTable->item(4, 2)->setText(
+      QString::number(result.func_result.swaps));
+  m_ui->resultsTable->item(4, 3)->setText(
       QString::number(result.duration.count()));
 }
 

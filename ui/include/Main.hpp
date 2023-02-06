@@ -34,6 +34,7 @@ private:
   void update_swap_sort();
   void update_selection_sort();
   void update_insertion_sort();
+  void update_quick_sort();
   void update_internal_sort();
   void get_arr_size();
 
