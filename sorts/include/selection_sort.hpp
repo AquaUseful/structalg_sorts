@@ -7,7 +7,7 @@
 #include "SortStats.hpp"
 
 template <std::random_access_iterator It>
-inline constexpr SortStats direct_selection_sort(It first, It last) {
+inline constexpr SortStats selection_sort(It first, It last) {
   SortStats stats{};
   for (auto insert_pos = first; insert_pos != last;
        std::advance(insert_pos, 1)) {

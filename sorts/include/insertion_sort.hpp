@@ -19,7 +19,7 @@ inline constexpr It upper_bound(It first, It last,
 }
 
 template <std::random_access_iterator It>
-inline constexpr SortStats direct_insertion_sort(It first, It last) {
+inline constexpr SortStats insertion_sort(It first, It last) {
   SortStats stats{};
   // В начале считаем, что отсортирован только 1 элменент
   It sorted_end = std::next(first);
