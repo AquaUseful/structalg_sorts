@@ -1,10 +1,11 @@
 #pragma once
 
-#include "SortStats.hpp"
 #include <algorithm>
 #include <bits/iterator_concepts.h>
 #include <cmath>
 #include <iterator>
+
+#include "SortStats.hpp"
 
 template <std::random_access_iterator It> struct PartitionResult {
   It iterator;
@@ -23,7 +24,7 @@ inline constexpr PartitionResult<It> partition(It first, It last,
     return PartitionResult<It>{part_start, stats};
   }
   for (auto i = std::next(part_start); i != last; ++i) {
-    ++stats.comparisons;
+    stats.comparisons += 2;
     if (predicate(*i)) {
       std::iter_swap(i, part_start);
       ++part_start;
@@ -39,8 +40,9 @@ inline constexpr SortStats quick_sort(It first, It last) {
     return SortStats{1, 0};
   }
   const auto pivot = *std::next(first, std::distance(first, last) / 2);
-  const auto pred_lt = [&pivot](const auto &el) { return el < pivot; };
-  const auto pred_nlt = [&pivot](const auto &el) { return !(el < pivot); };
+  // const auto pivot = *first;
+  const auto pred_lt = [pivot](const auto &el) { return el < pivot; };
+  const auto pred_nlt = [pivot](const auto &el) { return el <= pivot; };
   PartitionResult<It> part_res1 = partition(first, last, pred_lt);
   PartitionResult<It> part_res2 = partition(part_res1.iterator, last, pred_nlt);
   auto mid1 = part_res1.iterator;
