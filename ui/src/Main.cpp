@@ -4,22 +4,26 @@
 #include <iostream>
 #include <memory>
 #include <qmainwindow.h>
+#include <qnamespace.h>
 #include <qobjectdefs.h>
 #include <qwidget.h>
 #include <vector>
 
+#include "SortStats.hpp"
 #include "Timer.hpp"
-#include "direct_insertion_sort.hpp"
-#include "direct_selection_sort.hpp"
-#include "direct_swap_sort.hpp"
+#include "counting_sort.hpp"
+#include "insertion_sort.hpp"
 #include "internal_sort.hpp"
 #include "quick_sort.hpp"
+#include "selection_sort.hpp"
+#include "shell_sort.hpp"
+#include "swap_sort.hpp"
 
 ui::Main::Main(QWidget *parent)
     : QMainWindow(parent), m_ui{std::make_unique<ui_t>()}, m_rdev{} {
   m_ui->setupUi(this);
   m_ui->retranslateUi(this);
-  m_rgen.seed(m_rgen());
+  m_rgen.seed(m_rdev());
   config_slots();
 }
 
@@ -30,94 +34,131 @@ void ui::Main::config_slots() {
 
 void ui::Main::update_sort_info() {
   get_arr_size();
-  update_swap_sort();
-  update_insertion_sort();
-  update_selection_sort();
-  update_quick_sort();
-  update_internal_sort();
+  update_array();
+
+  if (m_ui->resultsTable->item(0, 0)->checkState()) {
+    update_swap_sort();
+  } else {
+    clear_sort_info(0);
+  }
+
+  if (m_ui->resultsTable->item(1, 0)->checkState()) {
+    update_selection_sort();
+  } else {
+    clear_sort_info(1);
+  }
+
+  if (m_ui->resultsTable->item(2, 0)->checkState()) {
+    update_insertion_sort();
+  } else {
+    clear_sort_info(2);
+  }
+
+  if (m_ui->resultsTable->item(3, 0)->checkState()) {
+    update_shell_sort();
+  } else {
+    clear_sort_info(3);
+  }
+
+  if (m_ui->resultsTable->item(4, 0)->checkState()) {
+    update_quick_sort();
+  } else {
+    clear_sort_info(4);
+  }
+
+  if (m_ui->resultsTable->item(5, 0)->checkState()) {
+    update_internal_sort();
+  } else {
+    clear_sort_info(5);
+  }
+
+  if (m_ui->resultsTable->item(6, 0)->checkState()) {
+    update_counting_sort();
+  } else {
+    clear_sort_info(6);
+  }
 }
 
 void ui::Main::update_swap_sort() {
-  randdist_t dist(m_min_value, m_max_value);
-  std::vector<value_t> arr(m_arr_size);
-  std::generate(arr.begin(), arr.end(),
-                [this, &dist]() { return dist(m_rgen); });
+  auto arr = m_array;
   const auto result =
       Timer::measure(direct_swap_sort<typename decltype(arr)::iterator>,
                      arr.begin(), arr.end());
-
-  m_ui->resultsTable->item(0, 1)->setText(
-      QString::number(result.func_result.comparisons));
-  m_ui->resultsTable->item(0, 2)->setText(
-      QString::number(result.func_result.swaps));
-  m_ui->resultsTable->item(0, 3)->setText(
-      QString::number(result.duration.count()));
+  display_sort_info(0, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
 }
 
 void ui::Main::update_selection_sort() {
-  randdist_t dist(m_min_value, m_max_value);
-  std::vector<value_t> arr(m_arr_size);
-  std::generate(arr.begin(), arr.end(),
-                [this, &dist]() { return dist(m_rgen); });
-  const auto result =
-      Timer::measure(direct_selection_sort<typename decltype(arr)::iterator>,
-                     arr.begin(), arr.end());
-
-  m_ui->resultsTable->item(1, 1)->setText(
-      QString::number(result.func_result.comparisons));
-  m_ui->resultsTable->item(1, 2)->setText(
-      QString::number(result.func_result.swaps));
-  m_ui->resultsTable->item(1, 3)->setText(
-      QString::number(result.duration.count()));
+  auto arr = m_array;
+  const auto result = Timer::measure(
+      selection_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+  display_sort_info(1, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
 }
 
 void ui::Main::update_insertion_sort() {
-  randdist_t dist(m_min_value, m_max_value);
-  std::vector<value_t> arr(m_arr_size);
-  std::generate(arr.begin(), arr.end(),
-                [this, &dist]() { return dist(m_rgen); });
-  const auto result =
-      Timer::measure(direct_insertion_sort<typename decltype(arr)::iterator>,
-                     arr.begin(), arr.end());
+  auto arr = m_array;
+  const auto result = Timer::measure(
+      insertion_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+  display_sort_info(2, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
+}
 
-  m_ui->resultsTable->item(2, 1)->setText(
-      QString::number(result.func_result.comparisons));
-  m_ui->resultsTable->item(2, 2)->setText(
-      QString::number(result.func_result.swaps));
-  m_ui->resultsTable->item(2, 3)->setText(
-      QString::number(result.duration.count()));
+void ui::Main::update_shell_sort() {
+  auto arr = m_array;
+  const auto result = Timer::measure(
+      shell_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+  display_sort_info(3, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
 }
 
 void ui::Main::update_quick_sort() {
-  randdist_t dist(m_min_value, m_max_value);
-  std::vector<value_t> arr(m_arr_size);
-  std::generate(arr.begin(), arr.end(),
-                [this, &dist]() { return dist(m_rgen); });
+  auto arr = m_array;
   const auto result = Timer::measure(
       quick_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
-
-  m_ui->resultsTable->item(4, 1)->setText(
-      QString::number(result.func_result.comparisons));
-  m_ui->resultsTable->item(4, 2)->setText(
-      QString::number(result.func_result.swaps));
-  m_ui->resultsTable->item(4, 3)->setText(
-      QString::number(result.duration.count()));
+  display_sort_info(4, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
 }
 
 void ui::Main::update_internal_sort() {
-  randdist_t dist(m_min_value, m_max_value);
-  std::vector<value_t> arr(m_arr_size);
-  std::generate(arr.begin(), arr.end(),
-                [this, &dist]() { return dist(m_rgen); });
+  auto arr = m_array;
   const auto result = Timer::measure(
       internal_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
-
-  m_ui->resultsTable->item(5, 1)->setText(
-      QString::number(result.func_result.comparisons));
-  m_ui->resultsTable->item(5, 2)->setText(
-      QString::number(result.func_result.swaps));
-  m_ui->resultsTable->item(5, 3)->setText(
-      QString::number(result.duration.count()));
+  display_sort_info(5, SortStats{0, 0}, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
 }
 
 void ui::Main::get_arr_size() { m_arr_size = m_ui->arrSize->value(); }
+
+void ui::Main::clear_sort_info(int row) {
+  for (int col{1}; col <= 3; ++col) {
+    m_ui->resultsTable->item(row, col)->setText("");
+  }
+  m_ui->resultsTable->item(row, 4)->setCheckState(Qt::CheckState::Unchecked);
+}
+
+void ui::Main::display_sort_info(int row, SortStats stats, long duration,
+                                 bool is_sorted) {
+  m_ui->resultsTable->item(row, 1)->setText(QString::number(stats.comparisons));
+  m_ui->resultsTable->item(row, 2)->setText(QString::number(stats.swaps));
+  m_ui->resultsTable->item(row, 3)->setText(QString::number(duration));
+
+  const Qt::CheckState check_state =
+      is_sorted ? Qt::CheckState::Checked : Qt::CheckState::Unchecked;
+  m_ui->resultsTable->item(row, 4)->setCheckState(check_state);
+}
+
+void ui::Main::update_array() {
+  m_array.resize(m_arr_size);
+  randdist_t dist(m_min_value, m_max_value);
+  std::generate(m_array.begin(), m_array.end(),
+                [this, &dist]() { return dist(m_rgen); });
+}
+
+void ui::Main::update_counting_sort() {
+  auto arr = m_array;
+  const auto result = Timer::measure(
+      counting_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+  display_sort_info(6, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
+}
