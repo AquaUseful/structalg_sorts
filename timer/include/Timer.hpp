@@ -5,7 +5,7 @@
 class Timer {
 public:
   using clock_t = std::chrono::high_resolution_clock;
-  using duration_t = std::chrono::microseconds;
+  using duration_t = std::chrono::nanoseconds;
 
   template <typename ReturnT> struct Measure {
     duration_t duration;
