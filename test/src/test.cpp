@@ -4,14 +4,14 @@
 #include <iostream>
 #include <vector>
 
-#include "direct_insertion_sort.hpp"
-#include "direct_selection_sort.hpp"
-#include "direct_swap_sort.hpp"
+#include "insertion_sort.hpp"
+#include "selection_sort.hpp"
+#include "swap_sort.hpp"
 
 int main() {
   std::vector<int> vec{10, 199, 78, 8, 6, 5};
 
-  const auto res = direct_selection_sort(vec.begin(), vec.end());
+  const auto res = selection_sort(vec.begin(), vec.end());
 
   for (const auto &i : vec) {
     std::cout << i << ' ';
