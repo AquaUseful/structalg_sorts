@@ -24,7 +24,7 @@ inline constexpr SortStats insertion_sort(It first, It last) {
   // В начале считаем, что отсортирован только 1 элменент
   It sorted_end = std::next(first);
   // Пока весь массив не отсортирован...
-  while (sorted_end <= last) {
+  while (sorted_end < last) {
     stats.comparisons += 2;
     // Если элемент после отсортированного куска не на своем месте...
     if (*std::prev(sorted_end) > *sorted_end) {
