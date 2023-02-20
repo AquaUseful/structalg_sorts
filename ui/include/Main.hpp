@@ -41,13 +41,13 @@ private:
   void update_quick_sort();
   void update_internal_sort();
   void update_counting_sort();
-  void get_arr_size();
   void clear_sort_info(int);
   void update_array();
   void display_sort_info(int, SortStats, long, bool);
 
 private slots:
   void update_sort_info();
+  void update_arr_size();
 
 private:
   ui_ptr_t m_ui;

@@ -1,6 +1,7 @@
 #include "Main.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <memory>
 #include <qmainwindow.h>
@@ -30,10 +31,12 @@ ui::Main::Main(QWidget *parent)
 void ui::Main::config_slots() {
   connect(m_ui->exitBtn, SIGNAL(clicked()), this, SLOT(close()));
   connect(m_ui->sortBtn, SIGNAL(clicked()), this, SLOT(update_sort_info()));
+  connect(m_ui->arrSize, SIGNAL(valueChanged(int)), this,
+          SLOT(update_arr_size()));
 }
 
 void ui::Main::update_sort_info() {
-  get_arr_size();
+  update_arr_size();
   update_array();
 
   if (m_ui->resultsTable->item(0, 0)->checkState()) {
@@ -128,7 +131,17 @@ void ui::Main::update_internal_sort() {
                     std::is_sorted(arr.begin(), arr.end()));
 }
 
-void ui::Main::get_arr_size() { m_arr_size = m_ui->arrSize->value(); }
+void ui::Main::update_arr_size() {
+  m_arr_size = m_ui->arrSize->value();
+  const std::size_t array_kbytes = (sizeof(value_t) * m_arr_size) / 1024;
+  QString kbytes;
+  if (array_kbytes == 0) {
+    kbytes = "<1";
+  } else {
+    kbytes = QString::number(array_kbytes);
+  }
+  m_ui->arrKbytes->setText(kbytes);
+}
 
 void ui::Main::clear_sort_info(int row) {
   for (int col{1}; col <= 3; ++col) {
