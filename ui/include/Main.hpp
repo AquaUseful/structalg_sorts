@@ -41,6 +41,7 @@ private:
   void update_quick_sort();
   void update_internal_sort();
   void update_counting_sort();
+  void update_heap_sort();
   void clear_sort_info(int);
   void update_array();
   void display_sort_info(int, SortStats, long, bool);

@@ -13,6 +13,7 @@
 #include "SortStats.hpp"
 #include "Timer.hpp"
 #include "counting_sort.hpp"
+#include "heap_sort.hpp"
 #include "insertion_sort.hpp"
 #include "internal_sort.hpp"
 #include "quick_sort.hpp"
@@ -79,6 +80,12 @@ void ui::Main::update_sort_info() {
     update_counting_sort();
   } else {
     clear_sort_info(6);
+  }
+
+  if (m_ui->resultsTable->item(7, 0)->checkState()) {
+    update_heap_sort();
+  } else {
+    clear_sort_info(7);
   }
 }
 
@@ -173,5 +180,13 @@ void ui::Main::update_counting_sort() {
   const auto result = Timer::measure(
       counting_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
   display_sort_info(6, result.func_result, result.duration.count(),
+                    std::is_sorted(arr.begin(), arr.end()));
+}
+
+void ui::Main::update_heap_sort() {
+  auto arr = m_array;
+  const auto result = Timer::measure(
+      heap_sort<typename decltype(arr)::iterator>, arr.begin(), arr.end());
+  display_sort_info(7, result.func_result, result.duration.count(),
                     std::is_sorted(arr.begin(), arr.end()));
 }
